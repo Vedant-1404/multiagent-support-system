@@ -50,10 +50,10 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str
     thread_id: str
-    intent: str
-    confidence: float
-    agent_used: str
-    escalated: bool
+    intent: str = "blocked"
+    confidence: float = 0.0
+    agent_used: str = "guardrail"
+    escalated: bool = False
     ticket_id: str = ""
 
 
@@ -73,16 +73,9 @@ async def chat(request: ChatRequest):
         "messages": [],
         "thread_id": thread_id,
         "user_input": request.message,
-        "intent": None,
-        "confidence": None,
-        "assigned_agent": None,
-        "agent_response": None,
-        "retry_count": 0,
-        "escalated": False,
-        "escalation_reason": None,
-        "final_response": None,
-        "guardrail_triggered": False,
-        "guardrail_reason": None,
+        "intent": "unknown",
+        "confidence": 0.0,
+        "assigned_agent": "unknown",
     }
 
     config = {"configurable": {"thread_id": thread_id}}

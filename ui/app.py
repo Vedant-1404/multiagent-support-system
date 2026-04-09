@@ -19,6 +19,8 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "last_meta" not in st.session_state:
     st.session_state.last_meta = {}
+if "pending_input" not in st.session_state:
+    st.session_state.pending_input = None
 
 col_chat, col_meta = st.columns([3, 1])
 
@@ -27,7 +29,21 @@ with col_chat:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    if prompt := st.chat_input("Ask about billing, technical issues, or returns..."):
+    prompt = None
+    if st.session_state.pending_input:
+        prompt = st.session_state.pending_input
+        st.session_state.pending_input = None
+
+    last_msg = st.session_state.messages[-1]["content"] if st.session_state.messages else ""
+    needs_followup = any(phrase in last_msg.lower() for phrase in [
+        "could you", "please provide", "can you share", "reason for", "order number"
+    ])
+    placeholder = "Type your reply here..." if needs_followup else "Ask about billing, technical issues, or returns..."
+
+    if user_input := st.chat_input(placeholder):
+        prompt = user_input
+
+    if prompt:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -96,7 +112,10 @@ with col_meta:
         "I can't log in — forgot my password",
         "My item arrived damaged",
     ]
-    for ex in examples:
-        if st.button(ex, use_container_width=True, key=ex):
-            st.session_state.messages.append({"role": "user", "content": ex})
-            st.rerun()
+    if not st.session_state.messages:
+        for ex in examples:
+            if st.button(ex, use_container_width=True, key=ex):
+                st.session_state.pending_input = ex
+                st.rerun()
+    else:
+        st.caption("Type your reply in the chat input below")

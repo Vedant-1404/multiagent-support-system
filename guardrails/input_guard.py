@@ -1,9 +1,6 @@
 import re
-import os
-import json
 import logging
-from langchain_groq import ChatGroq
-from langchain_core.messages import HumanMessage
+from typing import Tuple, List
 
 from graph.state import AgentState
 
@@ -29,7 +26,7 @@ PII_REPLACEMENTS = {
 }
 
 
-def redact_pii(text: str) -> tuple[str, list[str]]:
+def redact_pii(text: str) -> Tuple[str, List[str]]:
     redacted = text
     found = []
     for pii_type, pattern in PII_PATTERNS.items():
@@ -39,7 +36,7 @@ def redact_pii(text: str) -> tuple[str, list[str]]:
     return redacted, found
 
 
-def check_blocked_topics(text: str) -> tuple[bool, str]:
+def check_blocked_topics(text: str) -> Tuple[bool, str]:
     text_lower = text.lower()
     for topic in BLOCKED_TOPICS:
         if topic in text_lower:
