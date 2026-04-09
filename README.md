@@ -1,6 +1,5 @@
-# P6 — Multi-Agent Customer Support System
+# Multi-Agent Customer Support System
 
-Part of the [AI Engineer Portfolio Roadmap](https://github.com/Vedant-1404).
 
 A production-grade multi-agent customer support system built with **LangGraph**, **Groq**, **Redis**, **FastAPI**, and **Streamlit**. Demonstrates agentic orchestration, tool-calling, persistent memory, guardrails, and human escalation.
 
@@ -184,17 +183,3 @@ Response:
 | "What's included in the Pro plan?" | Billing agent → plan details |
 | "I can't log in, forgot my password" | Technical agent → docs search |
 | "My item arrived damaged" | Returns agent → policy + RMA |
-
-## Portfolio Context
-
-| Project | Focus |
-|---------|-------|
-| P1 | PDF RAG chatbot (LangChain + ChromaDB + Groq) |
-| P2 | Multi-doc research assistant (LlamaIndex + FAISS) |
-| P4 | SQL agent (LangChain agents + SQLAlchemy) |
-| P5 | Production RAG (RAGAS eval + LangSmith + Docker) |
-| **P6** | **Multi-agent system (LangGraph + Redis + guardrails)** |
-
----
-
-Built by [Vedant](https://github.com/Vedant-1404) · AI Engineer Portfolio
