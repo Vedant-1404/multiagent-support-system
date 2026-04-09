@@ -1,0 +1,13 @@
+langgraph==0.2.55
+langgraph-checkpoint-redis==0.0.3
+langchain==0.3.14
+langchain-groq==0.2.3
+langchain-core==0.3.28
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+streamlit==1.41.1
+redis==5.2.1
+python-dotenv==1.0.1
+pydantic==2.10.4
+requests==2.32.3
+pytest==8.3.4
